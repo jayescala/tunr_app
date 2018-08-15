@@ -12,4 +12,8 @@ urlpatterns = [
   path('songs/<int:id>/edit', views.song_edit, name='song_edit'),
   path('artists/<int:pk>/delete', views.artist_delete, name='artist_delete'),
   path('songs/<int:id>/delete', views.song_delete, name='song_delete'),
+  path('api/artists/', views.ArtistList.as_view(), name='artist-list'),
+  path('api/artists/<int:pk>', views.ArtistDetail.as_view(), name='artist-detail'),
+  path('api/songs/', views.SongList.as_view(), name='song-list'),
+  path('api/songs/<int:pk>', views.SongDetail.as_view(), name='song-detail')
 ]

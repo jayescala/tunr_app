@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 
 from .models import Artist, Song
 from .forms import ArtistForm, SongForm
-
+from rest_framework import generics
+from .serializers import ArtistSerializer, SongSerializer
 
 
 ############################### ARTIST ###############################
@@ -86,3 +87,23 @@ def song_edit(request, id):
 def song_delete(request, id):
   Song.objects.get(id=id).delete()
   return redirect('song_list')
+
+# Artist API List
+class ArtistList(generics.ListCreateAPIView):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
+
+# Artist API Detail
+class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
+
+# Song API List
+class SongList(generics.ListCreateAPIView):
+    queryset = Song.objects.all().prefetch_related('artist')
+    serializer_class = SongSerializer
+
+# Song API Detail
+class SongDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Song.objects.all().prefetch_related('artist')
+    serializer_class = SongSerializer

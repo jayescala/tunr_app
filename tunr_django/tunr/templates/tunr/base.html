@@ -10,6 +10,14 @@
             <a href="/songs">Songs</a>
             <a href="/">Artists</a>
         </nav>
+        <div class='user-info'>
+            {% if user.is_authenticated %}
+              Welcome, {{user.username}}
+              <a href="{% url 'logout' %}" title="">Log Out</a>
+            {% else %}
+              <a href="{% url 'login' %}">Login</a>
+              {% endif %}
+        </div>
 
         {% block content %}
         {% endblock %}

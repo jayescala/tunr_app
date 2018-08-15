@@ -4,17 +4,17 @@ from .models import Artist, Song
 from .forms import ArtistForm, SongForm
 from rest_framework import generics
 from .serializers import ArtistSerializer, SongSerializer
-
+from django.contrib.auth.decorators import login_required
 
 ############################### ARTIST ###############################
 
-
+@login_required
 def artist_list(request):
   artists = Artist.objects.all()
   return render(request, 'tunr/artist_list.html', {'artists': artists})
 
 # Artist Show
-
+@login_required
 def artist_detail(request, pk):
   artist = Artist.objects.get(id=pk)
   return render(request, 'tunr/artist_detail.html', {'artist': artist})
